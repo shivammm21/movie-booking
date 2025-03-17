@@ -1,0 +1,12 @@
+/home/user/Documents/Github/movie-booking/backend/src/main/java/com/moviebooking/MovieBookingApplication.java
+/home/user/Documents/Github/movie-booking/backend/src/main/java/com/moviebooking/exception/GlobalExceptionHandler.java
+/home/user/Documents/Github/movie-booking/backend/src/main/java/com/moviebooking/config/MongoConfig.java
+/home/user/Documents/Github/movie-booking/backend/src/main/java/com/moviebooking/security/JwtTokenUtil.java
+/home/user/Documents/Github/movie-booking/backend/src/main/java/com/moviebooking/repository/UserRepository.java
+/home/user/Documents/Github/movie-booking/backend/src/main/java/com/moviebooking/controller/AuthController.java
+/home/user/Documents/Github/movie-booking/backend/src/main/java/com/moviebooking/service/CustomUserDetailsService.java
+/home/user/Documents/Github/movie-booking/backend/src/main/java/com/moviebooking/security/JwtAuthenticationFilter.java
+/home/user/Documents/Github/movie-booking/backend/src/main/java/com/movie/moviebooking/MoviebookingApplication.java
+/home/user/Documents/Github/movie-booking/backend/src/main/java/com/moviebooking/model/User.java
+/home/user/Documents/Github/movie-booking/backend/src/main/java/com/moviebooking/security/SecurityConfig.java
+/home/user/Documents/Github/movie-booking/backend/src/main/java/com/moviebooking/config/MongoDBConnectionTest.java
