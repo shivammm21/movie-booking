@@ -7,7 +7,7 @@ axios.defaults.headers.common['Content-Type'] = 'application/json';
 axios.defaults.headers.common['Accept'] = 'application/json';
 
 export interface LoginRequest {
-  username: string;
+  usernameOrEmail: string;
   password: string;
 }
 
@@ -24,6 +24,25 @@ export interface AuthResponse {
   role: string;
 }
 
+export interface User {
+  id: string;
+  username: string;
+  email: string;
+  password: string;
+}
+
+export interface LoginResponse {
+  success: boolean;
+  message: string;
+  user: User;
+}
+
+export interface RegisterResponse {
+  success: boolean;
+  message: string;
+  user: User;
+}
+
 // Add axios interceptor for error handling
 axios.interceptors.response.use(
   (response) => response,
@@ -33,13 +52,11 @@ axios.interceptors.response.use(
   }
 );
 
-export const login = async (data: LoginRequest): Promise<AuthResponse> => {
+export const login = async (data: LoginRequest): Promise<LoginResponse> => {
   try {
-    const response = await axios.post(`${API_URL}/login`, data);
-    if (response.data.token) {
-      localStorage.setItem('user', JSON.stringify(response.data));
-      // Set the token in axios defaults for subsequent requests
-      axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
+    const response = await axios.post('http://localhost:8080/api/login', data);
+    if (response.data.success) {
+      localStorage.setItem('user', JSON.stringify(response.data.user));
     }
     return response.data;
   } catch (error: any) {
@@ -47,26 +64,28 @@ export const login = async (data: LoginRequest): Promise<AuthResponse> => {
       throw new Error('Invalid username or password');
     }
     if (error.response?.data) {
-      throw new Error(error.response.data);
+      throw new Error(error.response.data.message || 'Login failed');
     }
     throw new Error('Network error occurred. Please try again.');
   }
 };
 
-export const register = async (data: RegisterRequest): Promise<string> => {
+export const register = async (data: RegisterRequest): Promise<RegisterResponse> => {
   try {
-    const response = await axios.post(`${API_URL}/register`, data);
+    const response = await axios.post('http://localhost:8080/api/register', data);
+    if (response.data.success) {
+      localStorage.setItem('user', JSON.stringify(response.data.user));
+    }
     return response.data;
   } catch (error: any) {
-    console.error('Registration error:', error.response || error);
     if (error.response?.status === 400) {
-      throw new Error(error.response.data || 'Invalid registration data');
+      throw new Error(error.response.data.message || 'Invalid registration data');
     }
     if (error.response?.status === 409) {
       throw new Error('Username or email already exists');
     }
     if (error.response?.data) {
-      throw new Error(error.response.data);
+      throw new Error(error.response.data.message || 'Registration failed');
     }
     throw new Error('Network error occurred. Please check if the backend server is running.');
   }

@@ -14,17 +14,21 @@ import * as authService from '../services/authService';
 
 const Login = () => {
   const navigate = useNavigate();
-  const [username, setUsername] = useState('');
+  const [usernameOrEmail, setUsernameOrEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await authService.login({ username, password });
-      navigate('/movies');
+      const response = await authService.login({ usernameOrEmail, password });
+      if (response.success) {
+        navigate('/movies');
+      } else {
+        setError(response.message || 'Login failed');
+      }
     } catch (err: any) {
-      setError(err.response?.data || 'Failed to login');
+      setError(err.message || 'Failed to login');
     }
   };
 
@@ -54,13 +58,13 @@ const Login = () => {
               margin="normal"
               required
               fullWidth
-              id="username"
-              label="Username"
-              name="username"
+              id="usernameOrEmail"
+              label="Username or Email"
+              name="usernameOrEmail"
               autoComplete="username"
               autoFocus
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              value={usernameOrEmail}
+              onChange={(e) => setUsernameOrEmail(e.target.value)}
             />
             <TextField
               margin="normal"

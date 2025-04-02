@@ -67,13 +67,26 @@ const Register = () => {
     setIsLoading(true);
     try {
       const { confirmPassword, ...registerData } = formData;
-      await authService.register(registerData);
-      setSuccessMessage('Registration successful! Redirecting to login...');
-      setTimeout(() => {
-        navigate('/login');
-      }, 2000);
+      const response = await authService.register(registerData);
+      if (response.success) {
+        // After successful registration, automatically log in
+        const loginResponse = await authService.login({
+          usernameOrEmail: registerData.username,
+          password: registerData.password
+        });
+        
+        if (loginResponse.success) {
+          setSuccessMessage('Registration successful! Logging you in...');
+          setTimeout(() => {
+            navigate('/movies');
+          }, 1500);
+        } else {
+          setError('Registration successful but login failed. Please try logging in manually.');
+        }
+      } else {
+        setError(response.message || 'Registration failed. Please try again.');
+      }
     } catch (err: any) {
-      console.error('Registration error:', err);
       setError(err.message || 'Failed to register. Please try again.');
     } finally {
       setIsLoading(false);
