@@ -27,7 +27,7 @@ export const mockMovies = [
   {
     id: 2,
     title: 'Spider-Man: No Way Home',
-    image: 'https://pics.filmaffinity.com/spider_man_no_way_home-642739124-large.jpg',
+    image: 'https://th.bing.com/th/id/OIP.jBrDLlYMVAZBr4q1zpCHRgHaMU?rs=1&pid=ImgDetMain',
     description: 'Peter Parker seeks help from Doctor Strange to make people forget his identity as Spider-Man.',
     duration: '2h 28min',
     genre: 'Action, Adventure, Fantasy'
@@ -43,7 +43,7 @@ export const mockMovies = [
   {
     id: 4,
     title: 'Thor: Love and Thunder',
-    image: 'https://pics.filmaffinity.com/thor_love_and_thunder-566116133-large.jpg',
+    image: 'https://cosmicbook.news/images/thor-love-thunder-movie-poster-5.jpg',
     description: 'Thor enlists the help of Valkyrie, Korg and ex-girlfriend Jane Foster to fight Gorr the God Butcher.',
     duration: '1h 58min',
     genre: 'Action, Adventure, Comedy'
